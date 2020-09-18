@@ -77,49 +77,115 @@ function JsxTest(){
       )
       }
 
-    
-function Prerender() {
-  const [x, setX] = React.useState();
-  const [y, setY] = React.useState();
-  const [z, setZ] = React.useState(0);
+function Sumproj(){
+  const [num1, setNum1] = React.useState();
+  const [num2, setNum2] = React.useState();
 
-  function changeX(e) {
-    setX(parseInt(e.target.value));
+  const change1 = (e) =>{
+    setNum1(e.target.value);
   }
-  function changeY(e) {
-    setY(parseInt(e.target.value));
+  const change2 = (e) =>{
+    setNum2(e.target.value);
+  }
+  return (
+    <>
+    <div>
+      <input value={num1} onChange={change1}/>{'+'}
+      <input value={num2} onChange={change2}/>{'='}
+      <input value={parseFloat(num1)+parseFloat(num2)}/>
+    </div>
     
+    </>
+
+  )
+}
+
+function Parent(){
+  const [num, setNum] = React.useState(25);
+
+  const changenumber = (param) =>{
+    setNum(param);
   }
   
-  const changeZ = (e) =>{
-    setZ(e.target.value)
+  return(<>
+    숫자:{num}
+    <Child changenumber={changenumber}
+    color="red"
+    number={10}
+    student = {{name:'홍길동', age:35, address:'인천'}}/>
+    </>
+  );
+}
+
+function Child(prop){ //prop -> 오브젝트 형태로 받는다. 
+  const click = () =>{
+    prop.changenumber(10);
+  }
+  return(
+    <>
+    <button onClick={click}>클릭</button>
+    </>
+  )
+
+}
+
+function Add({x,y}){
+  return (<div>{x+y}</div>) ;
+}
+
+function Gugudan({x}){
+  const num_list = [1,2,3,4,5,6,7,8,9]; 
+
+  return (
+    <>
+    {num_list.map( (v,i)=>{
+      return <div key={i}> {x} X {v} = {x*v}</div>;
+    }
+    )}
+    </>
+  );
+ 
+}
+
+function MakeTodo(){
+  const [todo, setTodo] = React.useState();
+
+  const textcontent = (e) =>{
+    setTodo(e.target.value);
   }
 
   return (<>
-  <form>
-    <input type='text' onChange={changeX}/>{'+'}
-    <input type='text' onChange={changeY}/>{'='}
-    <input type='text' value={x+y} onChange={changeZ}/>
-  </form>
-    </>
+  <input type='text' onChange={textcontent}/>
+  <TodoList todo={todo} />
+  </>
   );
+}
+
+function TodoList(prop) {
+  const [todolist, setTodolist] = React.useState(Array());
+
+  const appendtodo = () =>{
+    setTodolist([...todolist, prop.todo]);
+  }
+
+
+  return (<>
+  <input type='button' value='추가' onClick={appendtodo}/>
+  {
+    todolist.map(
+      (v, i) => { return <div key={i}>{i} {v}</div>; }
+    )
+  }
+  </>)
 }
 
 
 function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으로 변환.
     
-    const [z, setZ] = React.useState(0);
-    var x=0;
-    var y=0;
-    
-
-    const dosum = () =>{
-      setZ(x+y)
-    }
     
   
     return (<div>
-      <Welcome/>
+      {/*<Welcome/>
       <ReactM/>
       <Buttontest/><br/>
       <List/>
@@ -130,7 +196,11 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
       <Changelist/><br/>
       <Sumbox/>
       <HoverTest/>
-      
+      <Sumproj/> */}
+      {/*<Parent/> */}
+      <Add x={10} y={20}/>
+      <Gugudan x={3}/>
+      <MakeTodo/>
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  
 }
