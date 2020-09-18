@@ -1,0 +1,6 @@
+tr>td:nth-of-type(2){
+    text-align:right;
+}
+th{
+    text-align:center;
+}
