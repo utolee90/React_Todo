@@ -1,0 +1,81 @@
+<html>
+<head>
+<style>
+    h1{
+        text-align:center;
+    }
+    #rps_box, #result{
+        display:table;
+        margin-left:auto;
+        margin-right:auto;
+    }
+    #scissors, #rock, #paper {
+        float:left;
+    }
+    #result{
+        text-align:center;
+        font-size:1.3em;
+        font-weight:bold;
+    }
+</style>    
+</head>
+<body>
+<h1>셋 중 하나를 선택해주세요.</h1>
+<div id='rps_box'>
+<div id="scissors" onclick="rps(0);"><img src="./Scissors.png"/></div>
+<div id="rock" onclick="rps(1);"><img src="./Rock.png"/></div>
+<div id="paper" onclick="rps(2);"><img src="./Paper.png"/></div>
+</div>
+<div id="result"></div>
+<script>
+scissors = document.querySelector('#scissors');
+rock = document.querySelector('#rock');
+paper = document.querySelector("#paper");
+
+function rps(_num){
+
+    c_num = Math.floor(Math.random() *3);
+    result(_num, c_num);
+
+}
+
+function drawing(_num) {
+    switch(_num){
+        case 0:
+            txt = 'Scissors.png'
+            break;
+        case 1:
+            txt = 'Rock.png'
+            break;
+        case 2:
+            txt = 'Paper.png'
+            break;
+    }
+    return txt;
+}
+
+function result(_num1, _num2){
+    div_res = document.querySelector('#result');
+    div_res.innerHTML = ''; // 내용 비우기
+    div_res.innerHTML +='<img src="'+drawing(_num1)+'"/>'
+    div_res.innerHTML +='<img src="'+drawing(_num2)+'"/>'
+    txt_div = document.createElement('div');
+    switch (_num1-_num2){
+    case 0:
+        txt = document.createTextNode('비겼습니다.');
+        break;
+    case 1:
+    case -2:
+        txt = document.createTextNode('이겼습니다.');
+        break;
+    case 2:
+    case -1:
+        txt = document.createTextNode('졌습니다.');
+        break;
+    }
+    txt_div.append(txt);
+    div_res.append(txt_div);
+}
+</script>
+</body>
+</html>

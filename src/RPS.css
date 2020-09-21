@@ -1,0 +1,16 @@
+h1{
+    text-align:center;
+}
+#rps_box, #result{
+    display:table;
+    margin-left:auto;
+    margin-right:auto;
+}
+#scissors, #rock, #paper {
+    float:left;
+}
+#result{
+    text-align:center;
+    font-size:1.3em;
+    font-weight:bold;
+}
