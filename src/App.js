@@ -12,6 +12,8 @@ import Changescore from 'Changescore';
 import Changelist from 'Changelist';
 import Sumbox from 'Sumbox';
 import HoverTest from 'HoverTest';
+import Gugudan from 'Gugudan';
+import MakeTodo from 'MakeTodo';
 
 function JsxTest(){
   const user=2
@@ -133,6 +135,7 @@ function Add({x,y}){
   return (<div>{x+y}</div>) ;
 }
 
+/*
 function Gugudan({x}){
   const num_list = [1,2,3,4,5,6,7,8,9]; 
 
@@ -178,7 +181,7 @@ function TodoList(prop) {
   }
   </>)
 }
-
+*/
 
 function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으로 변환.
     
@@ -196,10 +199,10 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
       <Changelist/><br/>
       <Sumbox/>
       <HoverTest/>
-      <Sumproj/> */}
-      {/*<Parent/> */}
-      <Add x={10} y={20}/>
-      <Gugudan x={3}/>
+      <Sumproj/> */
+      /*<Parent/> */}
+      {/*<Add x={10} y={20}/> */}
+      <Gugudan/>
       <MakeTodo/>
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  

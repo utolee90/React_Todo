@@ -1,0 +1,11 @@
+.todobox{
+    border:1px solid black;
+    margin:3px;
+    width:20em;
+    padding:3px;
+}
+.todobox span{
+    border:1px solid black;
+    background-color:#f8f8f8;
+    float:right;
+}
