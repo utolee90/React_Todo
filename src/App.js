@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import Count from 'Count';
 import Welcome from 'Welcome';
@@ -14,6 +14,9 @@ import Sumbox from 'Sumbox';
 import HoverTest from 'HoverTest';
 import Gugudan from 'Gugudan';
 import MakeTodo from 'MakeTodo';
+import Timer from 'Timer';
+import Master from 'Master';
+import Clock from 'Clock';
 
 function JsxTest(){
   const user=2
@@ -135,6 +138,31 @@ function Add({x,y}){
   return (<div>{x+y}</div>) ;
 }
 
+function CountArray(){
+  const [state,setState]=React.useState(0);
+  const click=()=>{
+  setState(state+1);
+  }
+  
+  React.useEffect(()=>{ //UseEffect -> [] 처음 웹페이지를 띄울 때에만 실행
+  console.log("useEffect:componentDidMount")
+  return ()=>{
+  console.log("useEffect:componentWillUnmount")
+  }
+  },[])
+  React.useEffect(()=>{ // [state] => state 값이 변할 때에만 실행. 
+  console.log("useEffect:componentDidUpdate",state)
+  },[state])
+  return(
+  <>
+  현재 숫자는? <span>{state}</span>
+  <div onClick={click}>클릭</div>
+  </>
+  );
+  }
+
+  
+  
 /*
 function Gugudan({x}){
   const num_list = [1,2,3,4,5,6,7,8,9]; 
@@ -183,6 +211,8 @@ function TodoList(prop) {
 }
 */
 
+
+
 function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으로 변환.
     
     
@@ -202,8 +232,12 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
       <Sumproj/> */
       /*<Parent/> */}
       {/*<Add x={10} y={20}/> */}
-      <Gugudan/>
-      <MakeTodo/>
+      <Gugudan/><br/>
+      <MakeTodo/><br/>
+      <CountArray/><br/><br/>
+      <Clock/><br/>
+      <Master/><br/>
+      <Timer/>
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  
 }

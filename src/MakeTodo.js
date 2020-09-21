@@ -16,13 +16,9 @@ function MakeTodo(){
     const deletetodo = (e) =>{
         let key_id = e.target.parentNode.id;
         let key_num = parseInt(key_id.slice(4));
-        let new_todolist = [];
-        for (var i=0; i<todolist.length; i++){
-            if (i !=key_num){
-                new_todolist.push(todolist[i]);
-            }
-        }
-        setTodolist(new_todolist);
+        
+        setTodolist([...todolist.slice(0,key_num), 
+            ...todolist.slice(key_num+1, todolist.length)]);
     }
   
     return (<>
