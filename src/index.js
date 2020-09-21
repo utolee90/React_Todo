@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import RPS from './RPS';
+import CssTest1 from 'CssTest1.js';
+import CssTest2 from 'CssTest2.js';
 //import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
     {/*<App /> */}
-    <RPS/>
+    {/*<RPS/> */}
+    <CssTest1/>
+    <CssTest2/>
   </React.StrictMode>,
   document.getElementById('root')
 );
