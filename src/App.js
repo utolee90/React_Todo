@@ -18,6 +18,7 @@ import Timer from 'Timer';
 import Master from 'Master';
 import Clock from 'Clock';
 import TestReducer from 'TestReducer';
+import TestReducer2 from 'TestReducer2';
 
 function JsxTest(){
   const user=2
@@ -180,6 +181,7 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
       <Master/><br/>
       <Timer/> */}
       <TestReducer/>
+      <TestReducer2/>
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  
 }
