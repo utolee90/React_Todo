@@ -44,9 +44,9 @@ return(
         <>
         <h1>셋 중 하나를 선택해주세요.</h1>
 <div id='rps_box'>
-<div id="scissors" onClick={do_rps}><img id="0" src={Scissors}/></div>
-<div id="rock" onClick={do_rps}><img id="1" src={Rock}/></div>
-<div id="paper" onClick={do_rps}><img id="2" src={Paper}/></div>
+<div id="scissors"><img id="0" src={Scissors} onClick={do_rps}/></div>
+<div id="rock"><img id="1" src={Rock} onClick={do_rps}/></div>
+<div id="paper"><img id="2" src={Paper} onClick={do_rps}/></div>
 </div>
 <div id="result">{resultbox[0]}{resultbox[1]}<br/>{resultbox[2]}</div>
 </>

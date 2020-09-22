@@ -8,6 +8,7 @@ h1{
 }
 #scissors, #rock, #paper {
     float:left;
+    cursor:pointer;
 }
 #result{
     text-align:center;

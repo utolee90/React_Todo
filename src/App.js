@@ -1,22 +1,23 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import Count from 'Count';
-import Welcome from 'Welcome';
-import ReactM from 'ReactM';
-import Fruits from 'Fruit';
-import Buttontest from 'Buttontest';
+// import Count from 'Count';
+// import Welcome from 'Welcome';
+// import ReactM from 'ReactM';
+// import Fruits from 'Fruit';
+// import Buttontest from 'Buttontest';
 import 'antd/dist/antd.css';
-import List from 'List';
-import TFtoggle from 'TFtoggle';
-import Changescore from 'Changescore';
-import Changelist from 'Changelist';
-import Sumbox from 'Sumbox';
-import HoverTest from 'HoverTest';
+// import List from 'List';
+// import TFtoggle from 'TFtoggle';
+// import Changescore from 'Changescore';
+// import Changelist from 'Changelist';
+// import Sumbox from 'Sumbox';
+// import HoverTest from 'HoverTest';
 import Gugudan from 'Gugudan';
 import MakeTodo from 'MakeTodo';
 import Timer from 'Timer';
 import Master from 'Master';
 import Clock from 'Clock';
+import TestReducer from 'TestReducer';
 
 function JsxTest(){
   const user=2
@@ -161,56 +162,6 @@ function CountArray(){
   );
   }
 
-  
-  
-/*
-function Gugudan({x}){
-  const num_list = [1,2,3,4,5,6,7,8,9]; 
-
-  return (
-    <>
-    {num_list.map( (v,i)=>{
-      return <div key={i}> {x} X {v} = {x*v}</div>;
-    }
-    )}
-    </>
-  );
- 
-}
-
-function MakeTodo(){
-  const [todo, setTodo] = React.useState();
-
-  const textcontent = (e) =>{
-    setTodo(e.target.value);
-  }
-
-  return (<>
-  <input type='text' onChange={textcontent}/>
-  <TodoList todo={todo} />
-  </>
-  );
-}
-
-function TodoList(prop) {
-  const [todolist, setTodolist] = React.useState(Array());
-
-  const appendtodo = () =>{
-    setTodolist([...todolist, prop.todo]);
-  }
-
-
-  return (<>
-  <input type='button' value='추가' onClick={appendtodo}/>
-  {
-    todolist.map(
-      (v, i) => { return <div key={i}>{i} {v}</div>; }
-    )
-  }
-  </>)
-}
-*/
-
 
 
 function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으로 변환.
@@ -219,25 +170,16 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
   
     return (<div>
       {/*<Welcome/>
-      <ReactM/>
-      <Buttontest/><br/>
-      <List/>
-      <TFtoggle/><br/>
-      <StateTest/>
-      <br/>
-      <Changescore/><br/>
-      <Changelist/><br/>
-      <Sumbox/>
-      <HoverTest/>
       <Sumproj/> */
       /*<Parent/> */}
       {/*<Add x={10} y={20}/> */}
-      <Gugudan/><br/>
+      {/* <Gugudan/><br/>
       <MakeTodo/><br/>
       <CountArray/><br/><br/>
       <Clock/><br/>
       <Master/><br/>
-      <Timer/>
+      <Timer/> */}
+      <TestReducer/>
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  
 }
