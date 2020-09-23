@@ -22,6 +22,7 @@ import TestReducer2 from 'TestReducer2';
 import ContextApiTest from 'ContextApiTest';
 import ContextApiTest2 from 'ContextApiTest2';
 import ContextApiCourse from 'ContextApiCourse';
+import AxiosTest from 'AxiosTest';
 
 function JsxTest(){
   const user=2
@@ -188,6 +189,7 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
       <ContextApiTest/> 
       <ContextApiTest2/> 
       <ContextApiCourse/>
+      <AxiosTest/>
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  
 }
