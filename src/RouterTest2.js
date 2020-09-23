@@ -2,6 +2,7 @@ import React from 'react';
 import queryString from 'query-string';
 // import 'antd/dist/antd.css';
 import { Menu, List } from 'antd';
+import { HomeOutlined, SmileOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import API from 'Api';
 import { Route, Link, NavLink, Switch } from 'react-router-dom';
 
@@ -17,9 +18,9 @@ export default function RouterTest() {
         <>
         <div id="menu">
             <Menu onClick={handleClick} selectedKeys={current} mode='horizontal'>
-                <Menu.Item key='home'><NavLink exact to="/" activeStyle={active}>홈</NavLink></Menu.Item>
-                <Menu.Item key='student'><NavLink exact to="/students" activeStyle={active}>학생</NavLink></Menu.Item>
-                <Menu.Item key='score'><NavLink exact to="/scores" activeStyle={active}>점수</NavLink></Menu.Item>
+                <Menu.Item key='home' icon={<HomeOutlined/>}><NavLink exact to="/" activeStyle={active}>홈</NavLink></Menu.Item>
+                <Menu.Item key='student' icon={<SmileOutlined/>}><NavLink exact to="/students" activeStyle={active}>학생</NavLink></Menu.Item>
+                <Menu.Item key='score' icon={<UnorderedListOutlined/>}><NavLink exact to="/scores" activeStyle={active}>점수</NavLink></Menu.Item>
             </Menu>
         </div>
         <div id="content">
