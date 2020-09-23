@@ -24,6 +24,9 @@ import ContextApiTest2 from 'ContextApiTest2';
 import ContextApiCourse from 'ContextApiCourse';
 import AxiosTest from 'AxiosTest';
 import AxiosScore from 'AxiosScore';
+import RouterTest from 'RouterTest';
+import RouterTest2 from 'RouterTest2';
+import {BrowserRouter} from 'react-router-dom';
 
 function JsxTest(){
   const user=2
@@ -187,11 +190,16 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
       <Timer/> */}
       {/* <TestReducer/>
       <TestReducer2/> */}
-      <ContextApiTest/> 
+      {/*<ContextApiTest/> 
       <ContextApiTest2/> 
       <ContextApiCourse/>
       <AxiosTest/><br/>
-      <AxiosScore/>
+      <AxiosScore/> */}
+      <BrowserRouter>
+      {/*<RouterTest/> */}
+      <RouterTest2/>
+      </BrowserRouter>
+      
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  
 }
