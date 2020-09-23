@@ -2,43 +2,43 @@ import React from 'react';
 import Axios from 'axios';
 import API from 'Api';
 
-export default function AxiosTest() {
-    const [students, setStudents] = React.useState([]);
+export default function AxiosScore() {
+    const [scores, setScores] = React.useState([]);
     const [id, setId] = React.useState(null);
     React.useEffect(()=>{
-        API.get("study/students/")
+        API.get("study/scores/")
         .then(res => {
             console.log(res);
             const { data } = res;
-            setStudents(data);
+            setScores(data);
         }).catch(error=>{
             console.log(error);
         })
     }, [])
     const click = (e) => {
-        console.log(e.target);
         setId(e.target.id);
     }
     return(
         <div>
+            학생 목록
             {
-                students.map((v)=>{
+                scores.map((v)=>{
                     return <div id={v.id} onClick={click}>{v.name}</div>
                 })
             }
             <hr/>
-            <AxiosTestDetail id={id}/>
+            <AxiosScoreDetail id={id}/>
         </div>
     )
 }
-function AxiosTestDetail({id}) {
-    const [student, setStudent] = React.useState(null)
+function AxiosScoreDetail({id}) {
+    const [score, setScore] = React.useState(null)
     React.useEffect(()=> {
-        API.get("study/students/" + id+'/')
+        API.get("study/scores/" + id+'/')
         .then(res => {
             console.log(res);
             const { data } = res;  
-            setStudent(data);
+            setScore(data);
         }).catch(error=>{
             console.log(error);
         })
@@ -46,11 +46,12 @@ function AxiosTestDetail({id}) {
     },[id])
     return(
     <div>
-        {student && <div>
-            <span>{student.name}</span>    
-            <span>{student.address}</span>    
-            <span>{student.email}</span>    
-            <span>{student.memo}</span>    
+        점수 정보<br/>
+        {score && <div>
+            <span>{score.name}</span> &nbsp;    
+            수학 : <span>{score.math}</span> &nbsp;    
+            과학 : <span>{score.science}</span> &nbsp;   
+            영어 : <span>{score.english}</span>    
         </div>}
     </div>
     )
