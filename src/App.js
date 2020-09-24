@@ -27,6 +27,7 @@ import AxiosScore from 'AxiosScore';
 import RouterTest from 'RouterTest';
 import RouterTest2 from 'RouterTest2';
 import {BrowserRouter} from 'react-router-dom';
+import REACT_Project from 'REACT_Project';
 
 function JsxTest(){
   const user=2
@@ -192,12 +193,13 @@ function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으�
       <TestReducer2/> */}
       {/*<ContextApiTest/> 
       <ContextApiTest2/> 
-      <ContextApiCourse/>
-      <AxiosTest/><br/>
+      <ContextApiCourse/> */}
+      {/* <AxiosTest/><br/>
       <AxiosScore/> */}
       <BrowserRouter>
-      {/*<RouterTest/> */}
-      <RouterTest2/>
+      {/*<RouterTest/> 
+      <RouterTest2/>*/}
+      <REACT_Project/>
       </BrowserRouter>
       
     </div>
