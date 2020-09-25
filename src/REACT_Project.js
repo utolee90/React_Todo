@@ -59,7 +59,7 @@ export default function REACT_Project(){
             </Menu>
         </Sider>
         <Layout className='layoutRight'>
-            <Header className='header' style={{backgroundColor:'#e9e9e9'}}>
+            <Header className='header' style={{backgroundColor:'#f9f9f9'}}>
             <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/home" component={Home}/>
