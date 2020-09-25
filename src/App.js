@@ -12,22 +12,24 @@ import 'antd/dist/antd.css';
 // import Changelist from 'Changelist';
 // import Sumbox from 'Sumbox';
 // import HoverTest from 'HoverTest';
-import Gugudan from 'Gugudan';
-import MakeTodo from 'MakeTodo';
-import Timer from 'Timer';
-import Master from 'Master';
-import Clock from 'Clock';
-import TestReducer from 'TestReducer';
-import TestReducer2 from 'TestReducer2';
-import ContextApiTest from 'ContextApiTest';
-import ContextApiTest2 from 'ContextApiTest2';
-import ContextApiCourse from 'ContextApiCourse';
-import AxiosTest from 'AxiosTest';
-import AxiosScore from 'AxiosScore';
-import RouterTest from 'RouterTest';
-import RouterTest2 from 'RouterTest2';
+//import Gugudan from 'Gugudan';
+//import MakeTodo from 'MakeTodo';
+//import Timer from 'Timer';
+//import Master from 'Master';
+//import Clock from 'Clock';
+//import TestReducer from 'TestReducer';
+//import TestReducer2 from 'TestReducer2';
+//import ContextApiTest from 'ContextApiTest';
+//import ContextApiTest2 from 'ContextApiTest2';
+//import ContextApiCourse from 'ContextApiCourse';
+//import AxiosTest from 'AxiosTest';
+//import AxiosScore from 'AxiosScore';
+//import RouterTest from 'RouterTest';
+//import RouterTest2 from 'RouterTest2';
 import {BrowserRouter} from 'react-router-dom';
 import REACT_Project from 'REACT_Project';
+//import TEST2 from 'TEST2';
+//import TEST from 'TEST';
 
 function JsxTest(){
   const user=2
@@ -177,30 +179,30 @@ function CountArray(){
 function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으로 변환.
     
     
-  
     return (<div>
       {/*<Welcome/>
       <Sumproj/> */
-      /*<Parent/> */}
-      {/*<Add x={10} y={20}/> */}
-      {/* <Gugudan/><br/>
+      /*<Parent/> */
+      /*<Add x={10} y={20}/> */
+      /* <Gugudan/><br/>
       <MakeTodo/><br/>
       <CountArray/><br/><br/>
       <Clock/><br/>
       <Master/><br/>
-      <Timer/> */}
-      {/* <TestReducer/>
-      <TestReducer2/> */}
-      {/*<ContextApiTest/> 
+      <Timer/> */
+      /* <TestReducer/>
+      <TestReducer2/> */
+      /*<ContextApiTest/> 
       <ContextApiTest2/> 
-      <ContextApiCourse/> */}
-      {/* <AxiosTest/><br/>
+      <ContextApiCourse/> */
+      /* <AxiosTest/><br/>
       <AxiosScore/> */}
       <BrowserRouter>
       {/*<RouterTest/> 
       <RouterTest2/>*/}
-      <REACT_Project/>
+       <REACT_Project/>
       </BrowserRouter>
+      {/* <AxiosTest/> */}
       
     </div>
   ); //컴포넌트 넣기 : 대문자로 사용.  
