@@ -30,6 +30,7 @@ import {BrowserRouter} from 'react-router-dom';
 import REACT_Project from 'REACT_Project';
 //import TEST2 from 'TEST2';
 //import TEST from 'TEST';
+import LoginContext from 'REACT_Project_sub';
 
 function JsxTest(){
   const user=2
@@ -177,7 +178,6 @@ function CountArray(){
 
 
 function App() { // jsx - HTML과 유사 - 그러나 JS 코드로 내부적으로 변환.
-    
     
     return (<div>
       {/*<Welcome/>

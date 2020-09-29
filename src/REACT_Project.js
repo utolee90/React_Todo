@@ -4,10 +4,10 @@ import { Layout, Menu, Button, List, Avatar , Row, Col, Modal, Form, Input, Sele
 import {HomeOutlined, HeartOutlined, ProfileOutlined, CopyOutlined, FormOutlined, DeleteOutlined} from '@ant-design/icons';
 import {FormInstance} from 'antd/lib/form';
 import './REACT.css';
-import Axios from 'axios';
+import jwt from "jwt-decode";
 import { Route, Link, NavLink, Switch} from 'react-router-dom';
 import {HomePage, Favouritegroup, Todogroup, Favourite, Todo, NoPage,
-    HomeContent, FavouritegroupContent, FavouriteContent, TodogroupContent, TodoContent } 
+    HomeContent, FavouritegroupContent, FavouriteContent, TodogroupContent, TodoContent, LoginHead, LoginContent, LoginContext } 
     from  'REACT_Project_sub'; 
 
 const {Header, Sider, Content} = Layout;
@@ -21,8 +21,10 @@ const Newbutton = createContext((text)=>(
 ))
 
 
+
 export default function REACT_Project(){
     // 메뉴 축소용
+    const [islogin, setIslogin] = useState(false);
     const [collapsed, setCollapsed] = useState(false);
     const [logoHTML, setLogoHTML] = useState('Todo Project');
     const [triggertext, setTriggertext] = useState('< 접기')
@@ -38,7 +40,7 @@ export default function REACT_Project(){
 
     const collapsemenu = () =>{
         setCollapsed(collapsed===true ? false: true);
-        setLogoHTML(collapsed===false? 'H' :'Todo Project');
+        setLogoHTML(collapsed===false? <HomeOutlined/> :'Todo Project');
         setTriggertext(collapsed===false? '>' : '< 접기')
     };
 
@@ -49,8 +51,22 @@ export default function REACT_Project(){
 
     const triggerbutton = (<div style={{background:'#ddf', color:'ButtonText'}}> {triggertext} </div>);
 
+    const [isLogin, setIsLogin] = React.useState(false);
+
+    useEffect (() =>{
+      const token = window.localStorage.getItem("token");
+      if (token!=null){
+        setIsLogin(true);
+      }
+    }, [])
+
+    const handleClick = e => {
+        console.log('click ', e);
+      };
+
 
     return (        
+        <LoginContext.Provider value={{isLogin, setIsLogin}}>
         <Layout className='layout'>
         <Sider style={siderstyle} collapsible onCollapse = {collapsemenu} width='180' scollapsedWidth='80' trigger={triggerbutton} >
             <div id='logo'><a href="/home" id="logo_link">{logoHTML}</a></div>
@@ -67,11 +83,13 @@ export default function REACT_Project(){
         </Sider>
         <Layout className='layoutRight'>
             <Header className='header' style={{backgroundColor:'#f9f9f9'}}>
+                <div style={{float:"right"}}>{islogin?<Link to=''>로그아웃</Link>:<Link to="/login">로그인</Link>}</div>
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/home" component={HomePage}/>
                 <Route exact path="/favouritegroup" component={Favouritegroup}/>
                 <Route exact path="/todogroup" component={Todogroup}/>
+                <Route exact path="/login" component={LoginHead}/>
                 <Route path="/favourite/:id" component={Favourite}/>
                 <Route path="/favourite" component={Favourite}/>
                 <Route path="/todo/:id" component={Todo}/>  
@@ -85,6 +103,7 @@ export default function REACT_Project(){
                 <Route exact path="/home" component={HomeContent}/>
                 <Route exact path="/favouritegroup" component={FavouritegroupContent}/>
                 <Route exact path="/todogroup" component={TodogroupContent}/>
+                <Route exact path="/login" component={LoginContent}/>
                 <Route path="/favourite/:id" component={FavouriteContent}/>
                 <Route path="/favourite" component={FavouriteContent}/>
                 <Route path="/todo/:id" component={TodoContent}/>  
@@ -95,7 +114,8 @@ export default function REACT_Project(){
         </Content>
         </Layout>
         
-        </Layout>        
+        </Layout>
+        </LoginContext.Provider>      
     )
 
 }

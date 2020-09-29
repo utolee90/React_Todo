@@ -9,6 +9,8 @@
     "antd": "^4.6.4",
     "axios": "^0.20.0",
     "axois": "^0.0.1-security",
+    "jwt-decode": "^3.0.0-beta.2",
+    "jwt-token": "^1.0.9",
     "query-string": "^6.13.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

@@ -52,7 +52,7 @@ export default function TestReducer(){
         </> */
         <>
         <div>{student.name} {student.age}</div>
-        <input name="name" onChange={change} stype="text" value={student.name}/> <br/>
+        <input name="name" onChange={change} type="text" value={student.name}/> <br/>
         <input name="age" onChange={change} type="text" value={student.age}/>
         </>
     )
