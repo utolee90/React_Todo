@@ -30,10 +30,6 @@ const InArray = createContext((_e, _Array) => {
 }
 ) // Array 안에 있는 여부 확인하는 함수
 
-function LoginHead({location, match, history}){
-    return ('Login');
-}
-
 function HomePage({location, match, history}){
     return <h1>HOME</h1>;
 }
@@ -615,4 +611,4 @@ function LoginContent({location, match, history}){
 
 
 export {HomePage, Favouritegroup, Todogroup, Favourite, Todo, NoPage,
-    HomeContent, FavouritegroupContent, FavouriteContent, TodogroupContent, TodoContent, LoginHead, LoginContent, LoginContext } ;
+    HomeContent, FavouritegroupContent, FavouriteContent, TodogroupContent, TodoContent, LoginContent, LoginContext } ;

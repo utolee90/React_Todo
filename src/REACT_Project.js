@@ -6,9 +6,15 @@ import {FormInstance} from 'antd/lib/form';
 import './REACT.css';
 import jwt from "jwt-decode";
 import { Route, Link, NavLink, Switch} from 'react-router-dom';
-import {HomePage, Favouritegroup, Todogroup, Favourite, Todo, NoPage,
-    HomeContent, FavouritegroupContent, FavouriteContent, TodogroupContent, TodoContent, LoginHead, LoginContent, LoginContext } 
-    from  'REACT_Project_sub'; 
+import LoginContent  from './account/login';
+import {LoginHead} from './account/login';
+import LoginContext from './account/Util'
+import {getToken} from './account/Util';
+import {HomePage, HomeContent, NoPage }  from './part/Home';
+import {Favourite, FavouriteContent } from './part/Favourite';
+import {FavouriteGroup, FavouriteGroupContent } from './part/FavouriteGroup';
+import {Todo, TodoContent } from './part/Todo';
+import {TodoGroup, TodoGroupContent } from './part/TodoGroup';
 
 const {Header, Sider, Content} = Layout;
 const {SubMenu} = Menu;
@@ -21,7 +27,6 @@ const Newbutton = createContext((text)=>(
 ))
 
 
-
 export default function REACT_Project(){
     // 메뉴 축소용
     const [islogin, setIslogin] = useState(false);
@@ -32,6 +37,7 @@ export default function REACT_Project(){
         float:"left", backgroundColor :"#f9f9f9", height:"100%",
     };
     const [siderstyle, setSiderstyle] = useState(uncsiderstyle);
+    const login = useContext(LoginContext)
 
     //메뉴, 축소 버튼 스타일
     const menustyle ={
@@ -53,16 +59,24 @@ export default function REACT_Project(){
 
     const [isLogin, setIsLogin] = React.useState(false);
 
+    const handleClick = e => {
+        console.log('click ', e);
+      };
+
+    const logoutsite = () =>{
+        window.localStorage.removeItem("token");
+        setIsLogin(false);
+    }
+
     useEffect (() =>{
       const token = window.localStorage.getItem("token");
       if (token!=null){
         setIsLogin(true);
       }
+      else {
+          setIsLogin(false);
+      }
     }, [])
-
-    const handleClick = e => {
-        console.log('click ', e);
-      };
 
 
     return (        
@@ -83,17 +97,17 @@ export default function REACT_Project(){
         </Sider>
         <Layout className='layoutRight'>
             <Header className='header' style={{backgroundColor:'#f9f9f9'}}>
-                <div style={{float:"right"}}>{islogin?<Link to=''>로그아웃</Link>:<Link to="/login">로그인</Link>}</div>
+                <div style={{float:"right"}}>{isLogin?<Link to='' onClick={logoutsite}>로그아웃</Link>:<Link to="/login">로그인</Link>}</div>
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/home" component={HomePage}/>
-                <Route exact path="/favouritegroup" component={Favouritegroup}/>
-                <Route exact path="/todogroup" component={Todogroup}/>
+                <Route exact path="/favouritegroup" component={FavouriteGroup}/>
+                <Route exact path="/todogroup" component={TodoGroup}/>
                 <Route exact path="/login" component={LoginHead}/>
-                <Route path="/favourite/:id" component={Favourite}/>
-                <Route path="/favourite" component={Favourite}/>
-                <Route path="/todo/:id" component={Todo}/>  
-                <Route path="/todo" component={Todo}/>                     
+                <Route path="/favourite/:id" component={isLogin?Favourite:LoginHead}/>
+                <Route path="/favourite" component={isLogin?Favourite:LoginHead}/>
+                <Route path="/todo/:id" component={isLogin?Todo:LoginHead}/>  
+                <Route path="/todo" component={isLogin?Todo:LoginHead}/>                     
                 <Route component={NoPage}/>
             </Switch>
             </Header>
@@ -101,13 +115,13 @@ export default function REACT_Project(){
         <Switch>
                 <Route exact path="/" component={HomeContent}/>
                 <Route exact path="/home" component={HomeContent}/>
-                <Route exact path="/favouritegroup" component={FavouritegroupContent}/>
-                <Route exact path="/todogroup" component={TodogroupContent}/>
+                <Route exact path="/favouritegroup" component={FavouriteGroupContent}/>
+                <Route exact path="/todogroup" component={TodoGroupContent}/>
                 <Route exact path="/login" component={LoginContent}/>
-                <Route path="/favourite/:id" component={FavouriteContent}/>
-                <Route path="/favourite" component={FavouriteContent}/>
-                <Route path="/todo/:id" component={TodoContent}/>  
-                <Route path="/todo" component={TodoContent}/>                     
+                <Route path="/favourite/:id" component={isLogin?FavouriteContent:LoginContent}/>
+                <Route path="/favourite" component={isLogin?FavouriteContent:LoginContent}/>
+                <Route path="/todo/:id" component={isLogin?TodoContent:LoginContent}/>  
+                <Route path="/todo" component={isLogin?TodoContent:LoginContent}/>                     
                 <Route component={NoPage}/>
         </Switch>
             
