@@ -101,8 +101,8 @@ export default function REACT_Project(){
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/home" component={HomePage}/>
-                <Route exact path="/favouritegroup" component={FavouriteGroup}/>
-                <Route exact path="/todogroup" component={TodoGroup}/>
+                <Route exact path="/favouritegroup" component={isLogin?FavouriteGroup:LoginHead}/>
+                <Route exact path="/todogroup" component={isLogin?TodoGroup:LoginHead}/>
                 <Route exact path="/login" component={LoginHead}/>
                 <Route path="/favourite/:id" component={isLogin?Favourite:LoginHead}/>
                 <Route path="/favourite" component={isLogin?Favourite:LoginHead}/>
@@ -115,8 +115,8 @@ export default function REACT_Project(){
         <Switch>
                 <Route exact path="/" component={HomeContent}/>
                 <Route exact path="/home" component={HomeContent}/>
-                <Route exact path="/favouritegroup" component={FavouriteGroupContent}/>
-                <Route exact path="/todogroup" component={TodoGroupContent}/>
+                <Route exact path="/favouritegroup" component={isLogin?FavouriteGroupContent:LoginContent}/>
+                <Route exact path="/todogroup" component={isLogin?TodoGroupContent:LoginContent}/>
                 <Route exact path="/login" component={LoginContent}/>
                 <Route path="/favourite/:id" component={isLogin?FavouriteContent:LoginContent}/>
                 <Route path="/favourite" component={isLogin?FavouriteContent:LoginContent}/>
