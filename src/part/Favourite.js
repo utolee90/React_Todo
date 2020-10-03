@@ -7,6 +7,8 @@ import Axios from 'axios';
 import jwt from "jwt-decode";
 import { stringify } from 'query-string';
 import {GetURL, Headerstyle, Del, Newbutton, InArray} from './Common';
+import LoginContext from '../account/Util.js';
+
 const {TextArea} = Input;
 const {Option} = Select;
 const {Header, Sider, Content} = Layout;
@@ -20,6 +22,7 @@ function Favourite({location, match, history}){
     const [FavouriteGroups, setFavouriteGroups] = useState([]); // favouritegroup 
     const [Favourites, setFavourites] = useState({});
     const [ID, setID] = useState(1)
+    const login = useContext(LoginContext)
     
     
     useEffect(()=>{
@@ -35,7 +38,7 @@ function Favourite({location, match, history}){
     }, [])
 
     useEffect(()=>{
-        Axios.get(geturl+"todo/favourite/")
+        Axios.get(geturl+"todo/allFavourite/", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
         .then(res => {
             console.log(res);
             const { data } = res;

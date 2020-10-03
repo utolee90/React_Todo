@@ -7,10 +7,12 @@ import Axios from 'axios';
 import jwt from "jwt-decode";
 import { stringify } from 'query-string';
 import {GetURL, Headerstyle, Del, Newbutton, InArray} from './Common';
+import LoginContext from '../account/Util';
 const {TextArea} = Input;
 const {Option} = Select;
 const {Header, Sider, Content} = Layout;
 const {SubMenu} = Menu;
+
 
 
 function Todo({location, match, history}){
@@ -20,7 +22,7 @@ function Todo({location, match, history}){
     const addbuttonlayout = useContext(Newbutton)('+ 추가');
     const [TodoGroups, setTodoGroups] = useState([]); // favouritegroup 
     useEffect(()=>{ // Todogroup 로딩
-        Axios.get(geturl+"todo/todogroup/")
+        Axios.get(geturl+"todo/allTodo/", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
         .then(res => {
             console.log(res);
             const { data } = res;

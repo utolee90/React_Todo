@@ -68,6 +68,18 @@ export default function REACT_Project(){
         setIsLogin(false);
     }
 
+    const [openKeys, setOpenKeys] = useState([]);
+    const submenukeys = ['favouriteset', 'todoset']
+
+    const onopenchange = (openKeys) => {
+        const latestOpenKey = openKeys.find(key => openKeys.indexOf(key) === -1);
+        if (submenukeys.indexOf(latestOpenKey) === -1) {
+           setOpenKeys(openKeys);
+        } else {
+            setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
+        }
+    }
+
     useEffect (() =>{
       const token = window.localStorage.getItem("token");
       if (token!=null){
@@ -84,7 +96,7 @@ export default function REACT_Project(){
         <Layout className='layout'>
         <Sider style={siderstyle} collapsible onCollapse = {collapsemenu} width='180' scollapsedWidth='80' trigger={triggerbutton} >
             <div id='logo'><a href="/home" id="logo_link">{logoHTML}</a></div>
-            <Menu mode='inline' style={menustyle} collapsedWidth="60" >
+            <Menu mode='inline' style={menustyle} collapsedWidth="60" openKeys = {openKeys} onOpenChange={onopenchange} >
                 <SubMenu key="favouriteset" icon={<HeartOutlined/>} title='즐겨찾기'>
                     <Menu.Item key='favouritegrouop' icon={<CopyOutlined/>}><NavLink exact to="/favouritegroup">그룹관리</NavLink></Menu.Item>
                     <Menu.Item key='favourite' icon={<FormOutlined/>}><NavLink to="/favourite">즐겨찾기</NavLink></Menu.Item>
