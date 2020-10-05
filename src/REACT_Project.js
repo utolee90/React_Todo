@@ -83,8 +83,20 @@ export default function REACT_Project(){
 
     useEffect (() =>{
       const token = window.localStorage.getItem("token");
+      console.log(jwt(token));
+      
       if (token!=null){
+        var decodedToken = jwt(token);
+        
+        if(decodedToken.exp *1000< new Date().getTime()){
+            console.log(decodedToken.exp);
+            console.log('Expired Token');
+            window.localStorage.removeItem("token");
+            setIsLogin(false);
+        }
+        else{
         setIsLogin(true);
+        }
       }
       else {
           setIsLogin(false);
@@ -114,13 +126,13 @@ export default function REACT_Project(){
             <Switch>
                 <Route exact path="/" component={HomePage}/>
                 <Route exact path="/home" component={HomePage}/>
-                <Route exact path="/favouritegroup" component={isLogin?FavouriteGroup:LoginHead}/>
-                <Route exact path="/todogroup" component={isLogin?TodoGroup:LoginHead}/>
+                <Route exact path="/favouritegroup" component={FavouriteGroup}/>
+                <Route exact path="/todogroup" component={TodoGroup}/>
                 <Route exact path="/login" component={LoginHead}/>
-                <Route path="/favourite/:id" component={isLogin?Favourite:LoginHead}/>
-                <Route path="/favourite" component={isLogin?Favourite:LoginHead}/>
-                <Route path="/todo/:id" component={isLogin?Todo:LoginHead}/>  
-                <Route path="/todo" component={isLogin?Todo:LoginHead}/>                     
+                <Route path="/favourite/:id" component={Favourite}/>
+                <Route path="/favourite" component={Favourite}/>
+                <Route path="/todo/:id" component={Todo}/>  
+                <Route path="/todo" component={Todo}/>                     
                 <Route component={NoPage}/>
             </Switch>
             </Header>
@@ -132,9 +144,9 @@ export default function REACT_Project(){
                 <Route exact path="/todogroup" component={isLogin?TodoGroupContent:LoginContent}/>
                 <Route exact path="/login" component={LoginContent}/>
                 <Route path="/favourite/:id" component={isLogin?FavouriteContent:LoginContent}/>
-                <Route path="/favourite" component={isLogin?FavouriteContent:LoginContent}/>
+                <Route path="/favourite" component={FavouriteContent}/>
                 <Route path="/todo/:id" component={isLogin?TodoContent:LoginContent}/>  
-                <Route path="/todo" component={isLogin?TodoContent:LoginContent}/>                     
+                <Route path="/todo" component={TodoContent}/>                     
                 <Route component={NoPage}/>
         </Switch>
         <Route path='/' compoment={Empty}/>

@@ -8,7 +8,7 @@ import jwt from "jwt-decode";
 import { stringify } from 'query-string';
 import {GetURL, Headerstyle, Del, Newbutton, InArray} from './Common';
 import LoginContext from '../account/Util.js';
-
+import { Route, Link, NavLink, Switch} from 'react-router-dom';
 const {TextArea} = Input;
 const {Option} = Select;
 const {Header, Sider, Content} = Layout;
@@ -75,7 +75,11 @@ function Favourite({location, match, history}){
                     setShowConfirmModal(true);
                     setShowModal(false);})
             .catch(error=>{console.log(error);
-                    setSendSuccess(false);}) 
+                    setSendSuccess(false);})
+            .then(res =>{
+                window.location.reload();
+            }
+            ) 
     }
     
     const checkshowmodal = () => {setShowConfirmModal(false);}
@@ -89,10 +93,8 @@ function Favourite({location, match, history}){
         }
         let ind = x.indexOf(parseInt(match.params.id))
         console.log('seq', x)
-        let ind_fav = Favourites[ind]
         return (<>
-        <h1>{Favourites[ind]!=undefined?Favourites[ind].name:'none'}</h1>
-
+        <h1>{Favourites[ind]!=undefined?Favourites[ind].name:'접근 불가'}</h1>
         </>
         );
     }
@@ -153,11 +155,13 @@ function FavouriteContent({location, match, history}){
     const [favourites, setFavourites] = useState([]);
     let del = useContext(Del);
     let geturl = useContext(GetURL);
+
     useEffect(()=>{
-        Axios.get(geturl+"todo/favourite/")
+        Axios.get(geturl+"todo/allFavourite", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
         .then(res => {
             console.log(res);
             const { data } = res;
+            console.log(data);
             setFavourites(data);
         }).catch(error=>{
             console.log(error);
@@ -196,11 +200,11 @@ function FavouriteContent({location, match, history}){
                renderItem = {favourite=>{
                 let onclick = () => {Axios.delete(geturl+'todo/favourite/'+favourite.seq+'/')}
                 let del2 = <Button style={{float:'right'}} shape="circle" icon={<DeleteOutlined/>} onClick={onclick} />
-                   
+                let furl = '/favourite/'+favourite.seq
                 return (
                <List.Item>
                    <List.Item.Meta
-                   title={favourite.name}
+                   title={<Link to={furl}>{favourite.name}</Link>}
                description={<div> {favourite.group_name}
                 / {favourite.reg_date} {del2} </div>}
                    />

@@ -27,6 +27,7 @@ export default function LoginContent() {
         window.localStorage.setItem("token", res.data.token)
         console.log(login.isLogin);
         login.setIsLogin(true);
+        window.location.href('/');
     }).catch(error=>{
         message.info('아이디, 패스워드를 확인해주세요');
     })

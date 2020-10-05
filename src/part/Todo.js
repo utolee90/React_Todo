@@ -1,13 +1,14 @@
 import React from 'react';
 import { useState, useEffect, useContext, createContext, useReducer } from 'react';
-import { Layout, Menu, Button, List, Avatar , Row, Col, Modal, Form, Input, Select, DatePicker, Table, Tag, Space, message } from 'antd';
-import {DeleteOutlined} from '@ant-design/icons';
+import { Layout, Menu, Button, List, Avatar , Row, Col, Modal, Form, Input, Select, DatePicker, Table, Tag, Space, message, Upload } from 'antd';
+import {DeleteOutlined, UploadOutlined} from '@ant-design/icons';
 import {FormInstance} from 'antd/lib/form';
 import Axios from 'axios';
 import jwt from "jwt-decode";
 import { stringify } from 'query-string';
 import {GetURL, Headerstyle, Del, Newbutton, InArray} from './Common';
 import LoginContext from '../account/Util';
+import { Route, Link, NavLink, Switch} from 'react-router-dom';
 const {TextArea} = Input;
 const {Option} = Select;
 const {Header, Sider, Content} = Layout;
@@ -23,6 +24,7 @@ function Todo({location, match, history}){
     const [TodoGroups, setTodoGroups] = useState([]); // TodoGroup
     const [Todos, setTodos] = useState({});
     const [ID, setID] = useState(1)
+    const [fileList, setFileList] = React.useState({fileList:[], uploading:false})
     const login = useContext(LoginContext)
 
     useEffect(()=>{
@@ -43,7 +45,7 @@ function Todo({location, match, history}){
             console.log(res);
             const { data } = res;
             console.log(data);
-            setTodos(data);
+            setTodos(data.all);
         }).catch(error=>{
             console.log(error);
         })
@@ -67,17 +69,26 @@ function Todo({location, match, history}){
         setShowModal(false);
     }
     const confirmmessage = (value) =>{ //전송 성공시 메시지 여부
+
+        const formData = new FormData();
+        formData.append('name', value.name);
+        formData.append('status', value.status);
+        formData.append('end_date', value.end_date._d.toISOString().slice(0,10));
+        formData.append('group', value.group);
+        formData.append('image', fileList.fileList[0]);
+
         console.log(value);
-        Axios.post(geturl+"todo/todo/", {name:value.name, 
-                                        status:value.status, 
-                                        end_date:value.end_date._d.toISOString().slice(0,10), 
-                                        group:value.group })
+        Axios.post(geturl+"todo/todo/", formData)
         .then(res=>{ console.log(res);
             setSendSuccess(true);
             setShowConfirmModal(true);
             setShowModal(false);})
         .catch(error=>{console.log(error);
-        setSendSuccess(false);})        
+        setSendSuccess(false);})
+        .then(res =>{
+            window.location.reload();
+        }
+        )         
     }
     const failmessage = () =>{ //전송 성공시 메시지 여부
         console.log("전송 실패")
@@ -85,9 +96,39 @@ function Todo({location, match, history}){
     const checkshowmodal = () => {setShowConfirmModal(false);}
     const checkcancelmodal = () => {setShowConfirmModal(false);}
     const addbutton = {...addbuttonlayout, props:{...addbuttonlayout.props, onClick:addfavourite}};
+    
+    const props = {
+        onRemove: file => {
+        setFileList(state => {
+            const index = state.fileList.indexOf(file);
+            const newFileList = state.fileList.slice();
+            newFileList.splice(index, 1);
+            return {
+              fileList: newFileList,
+            };
+          });
+        },
+        beforeUpload: file => {
+          setFileList(state => ({
+            fileList: [...state.fileList, file],
+          }));
+          return false;
+        },
+        fileList: fileList.fileList,
+      };
 
     if (match.params.id) {
-        return "Todo "+match.params.id;
+        var x =[]
+        for (var i=0; i<Todos.length;i++){
+            x = [...x, (Todos[i].seq)];
+        }
+        let ind = x.indexOf(parseInt(match.params.id))
+        console.log('seq', x)
+        return (<>
+        <h1>{Todos[ind]!=undefined?Todos[ind].name:'접근 불가'}</h1>
+
+        </>
+        );
     }
     else{
         return (<> 
@@ -125,6 +166,13 @@ function Todo({location, match, history}){
                             <DatePicker/>
                         </Form.Item>
                         <Form.Item // 이름 입력
+                        label="이미지" name="image" 
+                        >
+                            <Upload {...props}>
+                                <Button icon={<UploadOutlined />}>Click to Upload</Button>
+                            </Upload>
+                        </Form.Item>
+                        <Form.Item // 이름 입력
                         label="그룹" name="group" 
                         rules={[{required:true, message:'반드시 그룹을 선택해야 합니다'}, ]}>
                             <Select>
@@ -152,41 +200,64 @@ function Todo({location, match, history}){
 function TodoContent({location, match, history}){
     let del = useContext(Del);
     let geturl = useContext(GetURL);
+    const [Todos, setTodos] = useState([]);
     const [todospend, setTodospend] = useState([]);
     const [todosprogress, setTodosprogress] = useState([]);
     const [todosend, setTodosend] = useState([]);
     useEffect(()=>{
-        Axios.get(geturl+"todo/todo/")
+        Axios.get(geturl+"todo/allTodo", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
         .then(res => {
             console.log(res);
             const { data } = res;
             console.log(data)
-            var data_pend = [] //Pending 리스트
-            var data_progress = [] //Inprogress 리스트
-            var data_end = [] // End 리스트
-            for (var i=0; i<data.length;i++){
-                switch(data[i].status){
-                    case 'Pending': 
-                        data_pend.push(data[i]);
-                        break;
-                    case 'Inprogress':
-                        data_progress.push(data[i]);
-                        break;
-                    case 'End':
-                        data_end.push(data[i]);
-                        break;
-                }
-            }
-            setTodospend(data_pend);
-            setTodosprogress(data_progress);
-            setTodosend(data_end);
+            setTodos(data.all);
+            console.log(data.all)
+            setTodospend(data.pending);
+            setTodosprogress(data.inprogress);
+            setTodosend(data.end);
         }).catch(error=>{
             console.log(error);
         })
     }, [])
+
+    const status_tr = (v) =>{
+        switch(v){
+            case 'Inprogress':
+                return '진행중';
+            case 'Pending':
+                return '대기중';
+            case 'End':
+                return '완료';
+            default:
+                return '오류';
+        }
+    }
    
     if (match.params.id){
-    return "Todo "+match.params.id;}
+        console.log(Todos);
+        
+        let seqlist = Todos.map((v) => (v.seq) )
+        let i = seqlist.indexOf(parseInt(match.params.id))
+
+        const column = [
+            {title:'항목', dataIndex:'property', key:'property' },
+            {title:'내용', dataIndex:'contents', key:'contents'}
+        ]
+
+    
+        const datasource = [
+            {key:'1', property: '이름', contents:(Todos[i]==undefined?'':Todos[i].name)},
+            {key:'2', property: '상태', contents:(Todos[i]==undefined?'':status_tr(Todos[i].status))},
+            {key:'3', property: '종료일', contents:(Todos[i]==undefined?'':Todos[i].end_date)},
+            {key:'4', property: '분류', contents:(Todos[i]==undefined?'':Todos[i].group_name)},
+        ] 
+        
+        return ( <>
+            <Table columns={column} dataSource={datasource}>
+            </Table>
+            </>);
+    
+    }
     else { 
         return (
             <Row gutter={[8, 16]}>
@@ -197,11 +268,12 @@ function TodoContent({location, match, history}){
                dataSource={todospend}
                renderItem = {todo=>{
                 let onclick = () => {Axios.delete(geturl+'todo/todo/'+todo.seq+'/')}
-                let del2 = <Button style={{float:'right'}} shape="circle" icon={<DeleteOutlined/>} onClick={onclick} />   
+                let del2 = <Button style={{float:'right'}} shape="circle" icon={<DeleteOutlined/>} onClick={onclick} /> 
+                let turl = '/todo/'+todo.seq  
                 return (
                <List.Item>
                    <List.Item.Meta
-                   title={todo.name}
+                   title={<Link to={turl}>{todo.name}</Link>}
                description={<div> {todo.group_name}
                 / {todo.end_date} {del2} </div>}
                    />
@@ -220,11 +292,11 @@ function TodoContent({location, match, history}){
                renderItem = {todo=>{
                 let onclick = () => {Axios.delete(geturl+'todo/todo/'+todo.seq+'/')}
                 let del2 = <Button style={{float:'right'}} shape="circle" icon={<DeleteOutlined/>} onClick={onclick} />  
-                   
+                let turl = '/todo/'+todo.seq    
                 return (
                <List.Item>
                    <List.Item.Meta
-                   title={todo.name}
+                   title={<Link to={turl}>{todo.name}</Link>}
                description={<div> {todo.group_name}
                 / {todo.end_date}  {del2} </div>}
                    />
@@ -241,12 +313,12 @@ function TodoContent({location, match, history}){
                dataSource={todosend}
                renderItem = {todo=>{
                 let onclick = () => {Axios.delete(geturl+'todo/todo/'+todo.seq+'/')}
-                let del2 = <Button style={{float:'right'}} shape="circle" icon={<DeleteOutlined/>} onClick={onclick} />  
-
+                let del2 = <Button style={{float:'right'}} shape="circle" icon={<DeleteOutlined/>} onClick={onclick} />
+                let turl = '/todo/'+todo.seq  
                 return (
                <List.Item>
                    <List.Item.Meta
-                   title={todo.name}
+                   title={<Link to={turl}>{todo.name}</Link>}
                description={<div> {todo.group_name}
                 / {todo.end_date}  {del2} </div>}
                    />
