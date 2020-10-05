@@ -5,6 +5,7 @@ import {HomeOutlined, HeartOutlined, ProfileOutlined, CopyOutlined, FormOutlined
 import {FormInstance} from 'antd/lib/form';
 import './REACT.css';
 import jwt from "jwt-decode";
+import Empty from 'Empty';
 import { Route, Link, NavLink, Switch} from 'react-router-dom';
 import LoginContent  from './account/login';
 import {LoginHead} from './account/login';
@@ -136,6 +137,7 @@ export default function REACT_Project(){
                 <Route path="/todo" component={isLogin?TodoContent:LoginContent}/>                     
                 <Route component={NoPage}/>
         </Switch>
+        <Route path='/' compoment={Empty}/>
             
         </Content>
         </Layout>

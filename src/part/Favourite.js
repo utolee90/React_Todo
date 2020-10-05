@@ -38,7 +38,7 @@ function Favourite({location, match, history}){
     }, [])
 
     useEffect(()=>{
-        Axios.get(geturl+"todo/allFavourite/", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
+        Axios.get(geturl+"todo/allFavourite", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
         .then(res => {
             console.log(res);
             const { data } = res;
@@ -88,7 +88,7 @@ function Favourite({location, match, history}){
             x = [...x, (Favourites[i].seq)];
         }
         let ind = x.indexOf(parseInt(match.params.id))
-        console.log(x)
+        console.log('seq', x)
         let ind_fav = Favourites[ind]
         return (<>
         <h1>{Favourites[ind]!=undefined?Favourites[ind].name:'none'}</h1>

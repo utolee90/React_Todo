@@ -20,14 +20,30 @@ function Todo({location, match, history}){
     const geturl = useContext(GetURL);
     const inArray = useContext(InArray); // inArray 함수 정의
     const addbuttonlayout = useContext(Newbutton)('+ 추가');
-    const [TodoGroups, setTodoGroups] = useState([]); // favouritegroup 
-    useEffect(()=>{ // Todogroup 로딩
-        Axios.get(geturl+"todo/allTodo/", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
+    const [TodoGroups, setTodoGroups] = useState([]); // TodoGroup
+    const [Todos, setTodos] = useState({});
+    const [ID, setID] = useState(1)
+    const login = useContext(LoginContext)
+
+    useEffect(()=>{
+        Axios.get(geturl+"todo/todogroup/")
         .then(res => {
             console.log(res);
             const { data } = res;
             console.log(data);
             setTodoGroups(data);
+        }).catch(error=>{
+            console.log(error);
+        })
+    }, [])
+     
+    useEffect(()=>{ // Todogroup 로딩
+        Axios.get(geturl+"todo/allTodo", {headers:{'Authorization':'JWT '+window.localStorage.getItem("token")}} )
+        .then(res => {
+            console.log(res);
+            const { data } = res;
+            console.log(data);
+            setTodos(data);
         }).catch(error=>{
             console.log(error);
         })
