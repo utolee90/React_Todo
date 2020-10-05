@@ -4,7 +4,7 @@ import { Layout, Menu, Button, List, Avatar , Row, Col, Modal, Form, Input, Sele
 import {HomeOutlined, HeartOutlined, ProfileOutlined, CopyOutlined, FormOutlined, DeleteOutlined} from '@ant-design/icons';
 import {FormInstance} from 'antd/lib/form';
 import './REACT.css';
-// import jwt from "jwt-decode";
+import jwt from "jwt-decode";
 import Empty from 'Empty';
 import { Route, Link, NavLink, Switch} from 'react-router-dom';
 import LoginContent  from './account/login';
@@ -83,20 +83,19 @@ export default function REACT_Project(){
 
     useEffect (() =>{
       const token = window.localStorage.getItem("token");
-      //console.log(jwt(token));
       
       if (token!=null){
-       // var decodedToken = jwt(token);
+      var decodedToken = jwt(token);
         
-       /* if(decodedToken.exp *1000< new Date().getTime()){
+      if(decodedToken.exp *1000< new Date().getTime()){
             console.log(decodedToken.exp);
             console.log('Expired Token');
             window.localStorage.removeItem("token");
             setIsLogin(false);
         }
-        else{ */
+        else{ 
         setIsLogin(true);
-     /*   } */
+        } 
       }
       else {
           setIsLogin(false);
@@ -144,9 +143,9 @@ export default function REACT_Project(){
                 <Route exact path="/todogroup" component={isLogin?TodoGroupContent:LoginContent}/>
                 <Route exact path="/login" component={LoginContent}/>
                 <Route path="/favourite/:id" component={isLogin?FavouriteContent:LoginContent}/>
-                <Route path="/favourite" component={FavouriteContent}/>
+                <Route path="/favourite" component={isLogin?FavouriteContent:LoginContent}/>
                 <Route path="/todo/:id" component={isLogin?TodoContent:LoginContent}/>  
-                <Route path="/todo" component={TodoContent}/>                     
+                <Route path="/todo" component={isLogin?TodoContent:LoginContent}/>                     
                 <Route component={NoPage}/>
         </Switch>
         <Route path='/' compoment={Empty}/>
