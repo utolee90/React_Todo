@@ -1,7 +1,7 @@
 import Axios from 'axios';
 
 const API = Axios.create({
-    baseURL:"http://127.0.0.1:8000/api",
+    baseURL:"http://3.35.93.67/api",
     timeout:3000,
 })
 
