@@ -11,6 +11,7 @@ const {SubMenu} = Menu;
 // 공용 문자
 
 const GetURL = createContext('http://3.35.93.67/api/');
+//const GetURL = createContext('http://localhost:8000/api/');
 const Headerstyle = createContext({ backgroundColor:'#f9f9f9',width:'100%', height:'70px', padding:'10px', textAlign:'left'});
 const Del = createContext(<Button style={{float:'right'}} shape="circle" icon={<DeleteOutlined/>} /> );
 const Newbutton = createContext((text)=>(
