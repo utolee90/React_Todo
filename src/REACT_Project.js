@@ -108,7 +108,7 @@ export default function REACT_Project(){
         <LoginContext.Provider value={{isLogin, setIsLogin}}>
         <Layout className='layout'>
         <Sider style={siderstyle} collapsible onCollapse = {collapsemenu} width='180' scollapsedWidth='80' trigger={triggerbutton} >
-            <div id='logo'><a href="/home" id="logo_link">{logoHTML}</a></div>
+            <div id='logo'><NavLink exact to="/home" id="logo_link">{logoHTML}</NavLink></div>
             <Menu mode='inline' style={menustyle} collapsedWidth="60" openKeys = {openKeys} onOpenChange={onopenchange} >
                 <SubMenu key="favouriteset" icon={<HeartOutlined/>} title='즐겨찾기'>
                     <Menu.Item key='favouritegrouop' icon={<CopyOutlined/>}><NavLink exact to="/favouritegroup">그룹관리</NavLink></Menu.Item>
